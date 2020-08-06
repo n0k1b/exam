@@ -23,6 +23,7 @@ use App\Classes\SMSServiceException;
 use App\Classes\SubscriptionReceiver;
 use App\ussd_user;
 use App\otp_check;
+use App\subscription_status;
 class UserController extends Controller {
     //
     public $successStatus = 200;
@@ -94,18 +95,32 @@ class UserController extends Controller {
     public function subscription_notification(Request $request)
     {
         file_put_contents('test_subscription.txt','Hello');
-    // $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id,$this->app_password);
-    // $receiver 	= new SubscriptionReceiver();
-    // $frequency = $receiver->getFrequency();
-    // $status = $receiver->getStatus();
+     $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id,$this->app_password);
+     $receiver 	= new SubscriptionReceiver();
+     $frequency = $receiver->getFrequency();
+     $status = $receiver->getStatus();
     
-    //  $application_id = $receiver->getApplicationId();
-    // $address = $receiver->getsubscriberId();
-    // $timestamp = $receiver->getTimestamp();
-    // //user::where('mask','=',"tel:".$address)->update(['status'=>$status]);
-    //  file_put_contents('test.txt',$frequency." ".$status." ".$application_id." ".$address." ".$timestamp);
+      $application_id = $receiver->getApplicationId();
+     $address = $receiver->getsubscriberId();
+     $address = ltrim($address, '88'); 
+     $timestamp = $receiver->getTimestamp();
+     
+    if(user::where('mobile','=',$address)->first())
+    {
+        user::where('mobile','=',$address)->update(['subscription_status'=>$status]);
+    }
+    if(subscription_status::where('mobile','=',$address)->first())
+    {
+        subscription_status::where('mobile','=',$address)->update(['status'=>$status]);
+    }
+    else 
+    {
+        subscription_status::create(['status'=>$status,'mobile'=>$address,'timestamp'=>$timestamp]);
+    }
+     //user::where('mobile','=',"tel:".$address)->update(['status'=>$status]);
+      //file_put_contents('test.txt',$frequency." ".$status." ".$application_id." ".$address." ".$timestamp);
     
-    //   $sender->sms('Download the app. https://play.google.com/store/apps/details?id=co.zubdroid.zubrein.sgc',"tel:".$address);
+       $sender->sms('Download the app. https://play.google.com/store/apps/details?id=co.zubdroid.zubrein.sgc',"tel:88".$address);
     }
     public function subscription_free(Request $request) {
         $user_id = $request->user_id;

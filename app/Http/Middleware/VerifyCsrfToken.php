@@ -23,7 +23,8 @@ class VerifyCsrfToken extends Middleware
         'otp_login',
         'ussd',
         'sbscription_notification',
-        'getMsisdn'
+        'getMsisdn',
+        'SubscriptionNotificationPaid'
         
         //
     ];
