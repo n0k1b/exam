@@ -121,9 +121,9 @@ class UserController extends Controller {
         subscription_status::create(['status'=>$status,'mobile'=>$address,'timestamp'=>$timestamp]);
     }
      //user::where('mobile','=',"tel:".$address)->update(['status'=>$status]);
-      //file_put_contents('test.txt',$frequency." ".$status." ".$application_id." ".$address." ".$timestamp);
+      file_put_contents('tt.txt',$frequency." ".$status." ".$application_id." ".$address." ".$timestamp);
     
-       $sender->sms('Download the app. https://play.google.com/store/apps/details?id=co.zubdroid.zubrein.sgc',"tel:88".$address);
+       $sender->sms("Download the app. https://play.google.com/store/apps/details?id=co.zubdroid.zubrein.sgc","tel:88".$address);
     }
     public function subscription_free(Request $request) {
         $user_id = $request->user_id;
