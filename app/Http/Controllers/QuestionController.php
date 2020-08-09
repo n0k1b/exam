@@ -379,7 +379,7 @@ class QuestionController extends Controller {
         $date = date('d-m-Y');
         $mobile_number = $request->msisdn;
         $user_id = $request->user_id;
-        $amount = 0.1;
+        $amount = 2;
         $subscription = new Subscription('https://developer.bdapps.com/subscription/send', $this->app_id_subscription_free, $this->app_password_subscription_free);
         try {
             $x = $subscription->subscribe("tel:88" . $mobile_number);
@@ -412,7 +412,7 @@ class QuestionController extends Controller {
  date_default_timezone_set('Asia/Dhaka');
         $date = date('d-m-Y');
         $user_id = $request->user_id;
-        $amount = 0.01;
+        $amount = 2;
         $mobile_number = User::where('id', '=', $user_id)->first()->mobile;
         $subscription = new Subscription('https://developer.bdapps.com/subscription/send', $this->app_id_subscription_free, $this->app_password_subscription_free);
         try {
@@ -532,7 +532,7 @@ class QuestionController extends Controller {
         }
         
         
-        $availability = 'false';
+      //  $availability = 'false';
 
         if($mobile)
         {
@@ -544,7 +544,7 @@ class QuestionController extends Controller {
         {
            if($availability)
            {
-           return response()->json(['msisdn'=>false,'availability'=>false]); 
+           return response()->json(['msisdn'=>false,'availability'=>true]); 
            }
            else
            {

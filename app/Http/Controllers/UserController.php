@@ -95,7 +95,7 @@ class UserController extends Controller {
     public function subscription_notification(Request $request)
     {
         //file_put_contents('test_subscription.txt','Hello');
-     $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id,$this->app_password);
+    $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id_subscription_free,$this->app_password_subscription_free);
      $receiver 	= new SubscriptionReceiver();
      $frequency = $receiver->getFrequency();
      $status = $receiver->getStatus();
