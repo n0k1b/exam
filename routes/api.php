@@ -79,7 +79,7 @@ Route::post('get_details_by_user_id','UserController@get_details_by_user_id');
      Route::post('subscription_free','UserController@subscription_free');
        Route::post('subscription_paid','UserController@subscription_paid');
      
-     Route::post('cass_charge_regular','QuestionController@caas_charge_regular');
+     Route::post('cass_charge_regular','QuestionController@');
      
      Route::post('subjects','QuestionController@get_subject');
       Route::post('challenge_friend_subjects','QuestionController@get_subject_challenge_friend');
