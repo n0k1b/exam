@@ -97,33 +97,33 @@ class UserController extends Controller {
     
     public function subscription_notification(Request $request)
     {
-        //file_put_contents('test_subscription.txt','Hello');
-    $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id_subscription_free,$this->app_password_subscription_free);
-     $receiver 	= new SubscriptionReceiver();
-     $frequency = $receiver->getFrequency();
-     $status = $receiver->getStatus();
+        file_put_contents('ttest_subscription.txt','Hello');
+    // $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id_subscription,$this->app_password_subscription);
+    //  $receiver 	= new SubscriptionReceiver();
+    //  $frequency = $receiver->getFrequency();
+    //  $status = $receiver->getStatus();
     
-      $application_id = $receiver->getApplicationId();
-     $address = $receiver->getsubscriberId();
-     $address = ltrim($address, '88'); 
-     $timestamp = $receiver->getTimestamp();
+    //   $application_id = $receiver->getApplicationId();
+    //  $address = $receiver->getsubscriberId();
+    //  $address = ltrim($address, '88'); 
+    //  $timestamp = $receiver->getTimestamp();
      
-    if(user::where('mobile','=',$address)->first())
-    {
-        user::where('mobile','=',$address)->update(['subscription_status'=>$status]);
-    }
-    if(subscription_status::where('mobile','=',$address)->first())
-    {
-        subscription_status::where('mobile','=',$address)->update(['status'=>$status]);
-    }
-    else 
-    {
-        subscription_status::create(['status'=>$status,'mobile'=>$address,'timestamp'=>$timestamp]);
-    }
-     //user::where('mobile','=',"tel:".$address)->update(['status'=>$status]);
-      file_put_contents('tt.txt',$frequency." ".$status." ".$application_id." ".$address." ".$timestamp);
+    // if(user::where('mobile','=',$address)->first())
+    // {
+    //     user::where('mobile','=',$address)->update(['subscription_status'=>$status]);
+    // }
+    // if(subscription_status::where('mobile','=',$address)->first())
+    // {
+    //     subscription_status::where('mobile','=',$address)->update(['status'=>$status]);
+    // }
+    // else 
+    // {
+    //     subscription_status::create(['status'=>$status,'mobile'=>$address,'timestamp'=>$timestamp]);
+    // }
+    //  //user::where('mobile','=',"tel:".$address)->update(['status'=>$status]);
+    //   file_put_contents('tt.txt',$frequency." ".$status." ".$application_id." ".$address." ".$timestamp);
     
-       $sender->sms("Download the app. https://play.google.com/store/apps/details?id=co.zubdroid.zubrein.sgc","tel:88".$address);
+    //    $sender->sms("Download the app. https://play.google.com/store/apps/details?id=co.zubdroid.zubrein.sgc","tel:88".$address);
     }
     public function subscription_free(Request $request) {
         $user_id = $request->user_id;
