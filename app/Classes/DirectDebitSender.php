@@ -8,8 +8,8 @@ use App\Classes\Core;
 
 class DirectDebitSender extends core{
     var $server = "https://developer.bdapps.com/caas/direct/debit";
-    var $applicationId = "APP_012867";
-    var $password = "31543b60d5e4966ba171467c442ec8c7";
+    var $applicationId = "APP_028448";
+    var $password = "211a008cdceca5968c742f793843b26f";
             
 
     // public function __construct($server,$applicationId,$password){
