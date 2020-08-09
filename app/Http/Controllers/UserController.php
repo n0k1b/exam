@@ -27,10 +27,10 @@ use App\subscription_status;
 class UserController extends Controller {
     //
     public $successStatus = 200;
-    public $app_id = "APP_017166";
-    public $app_password = "85d518f39b54d61a2f49ce1160e936f1";
-    public $app_id_subscription_free = 'APP_012867';
-    public $app_password_subscription_free = '31543b60d5e4966ba171467c442ec8c7';
+    public $app_id = "APP_005968";
+    public $app_password = "186568e5974976fc5ae362d9496a704f";
+    public $app_id_subscription_free = 'APP_028448';
+    public $app_password_subscription_free = '211a008cdceca5968c742f793843b26f';
     public function login() {
         if (Auth::attempt(['mobile' => request('mobile'), 'password' => request('password') ])) {
             $user = Auth::user();
