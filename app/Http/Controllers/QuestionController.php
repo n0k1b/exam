@@ -412,7 +412,7 @@ class QuestionController extends Controller {
  date_default_timezone_set('Asia/Dhaka');
         $date = date('d-m-Y');
         $user_id = $request->user_id;
-        $amount = 0.01;
+        $amount = 0.1;
         $mobile_number = User::where('id', '=', $user_id)->first()->mobile;
         $subscription = new Subscription('https://developer.bdapps.com/subscription/send', $this->app_id_subscription_free, $this->app_password_subscription_free);
         try {
