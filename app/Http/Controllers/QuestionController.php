@@ -425,6 +425,7 @@ class QuestionController extends Controller {
             $caas = new DirectDebitSender();
             $cass_status = json_decode($caas->cass($user_id, "tel:88" . $mobile_number, $amount));
             //return $cass_status->statusCode;
+            return $cass_status->statusCode;
             if ($cass_status->statusCode === "S1000") {
                 daily_charging::create(['statusCode' => $cass_status->statusCode, 'timeStamp' => $cass_status->timeStamp, 'externalTrxId' => $cass_status->externalTrxId, 'statusDetail' => $cass_status->statusDetail, 'internalTrxId' => $cass_status->internalTrxId]);
                 // $exam_count = exam_count::where('exam_date','=',$date)->where('user_id','=',$user_id)->first();
