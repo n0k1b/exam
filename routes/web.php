@@ -23,6 +23,7 @@ Route::get('faq',function()
 
 );
 
+Route::get('test','UserController@test');
 Route::get('admin-question',function()
 {
    return view('admin_question');  

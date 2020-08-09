@@ -41,7 +41,10 @@ class UserController extends Controller {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
     }
-    
+    public function test()
+    {
+        file_put_contents('test5.txt','hello');
+    }
     public function feedback(Request $request)
     {
         //file_put_contents('test_feedback.txt',$request);
