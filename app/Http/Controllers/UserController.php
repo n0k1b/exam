@@ -44,7 +44,7 @@ class UserController extends Controller {
     
     public function feedback(Request $request)
     {
-        file_put_contents('test_feedback.txt',$request);
+        //file_put_contents('test_feedback.txt',$request);
         return response()->json(['status_code'=>200]);
     }
     public function get_user_id_by_email(Request $request) {
@@ -94,7 +94,7 @@ class UserController extends Controller {
     
     public function subscription_notification(Request $request)
     {
-        file_put_contents('test_subscription.txt','Hello');
+        //file_put_contents('test_subscription.txt','Hello');
      $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id,$this->app_password);
      $receiver 	= new SubscriptionReceiver();
      $frequency = $receiver->getFrequency();
@@ -158,7 +158,7 @@ class UserController extends Controller {
             //return response ()->json(['status_code' => 200]);
         }
         catch(Exception $e) {
-            file_put_contents('test.txt', $e);
+           // file_put_contents('test.txt', $e);
             //return response()->json(['status_code' => 400]);
         }
         if($status_code === 'S1000')
@@ -350,7 +350,7 @@ class UserController extends Controller {
             }
         }
         catch(Exception $e) {
-            file_put_contents('USSDERROR.txt', $e);
+          //  file_put_contents('USSDERROR.txt', $e);
         }
     }
   

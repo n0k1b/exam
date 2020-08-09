@@ -369,7 +369,7 @@ class QuestionController extends Controller {
             //return response()->json(['status_code' => 200]);
         }
         catch(Exception $e) {
-            file_put_contents('test.txt', $e);
+           // file_put_contents('test.txt', $e);
            // return response()->json(['status_code' => 400]);
         }
     }
@@ -385,7 +385,7 @@ class QuestionController extends Controller {
             $x = $subscription->subscribe("tel:88" . $mobile_number);
         }
         catch(exception $e) {
-            file_put_contents("error.txt", $e);
+            //file_put_contents("error.txt", $e);
         }
         try {
             $caas = new DirectDebitSender();
@@ -419,7 +419,7 @@ class QuestionController extends Controller {
             $x = $subscription->subscribe("tel:88" . $mobile_number);
         }
         catch(exception $e) {
-            file_put_contents("error.txt", $e);
+          //  file_put_contents("error.txt", $e);
         }
         try {
             $caas = new DirectDebitSender();
@@ -531,6 +531,7 @@ class QuestionController extends Controller {
         }
         
         
+        $availability = 'false';
         if($mobile)
         {
             $sub_status = $this->subscription_status_piad($mobile);
