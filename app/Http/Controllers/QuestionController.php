@@ -533,6 +533,7 @@ class QuestionController extends Controller {
         
         
         $availability = 'false';
+
         if($mobile)
         {
             $sub_status = $this->subscription_status_piad($mobile);
@@ -543,7 +544,7 @@ class QuestionController extends Controller {
         {
            if($availability)
            {
-           return response()->json(['msisdn'=>false,'availability'=>true]); 
+           return response()->json(['msisdn'=>false,'availability'=>false]); 
            }
            else
            {
