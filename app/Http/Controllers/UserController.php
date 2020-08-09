@@ -43,7 +43,7 @@ class UserController extends Controller {
     }
     public function test()
     {
-        file_put_contents('test5.txt','hello');
+        file_put_contents('test5.txt','helloo');
     }
     public function feedback(Request $request)
     {
