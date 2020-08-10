@@ -100,7 +100,7 @@ class UserController extends Controller {
         //file_put_contents('ttest_subscription.txt','Hello');
     $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id,$this->app_password);
      $receiver 	= new SubscriptionReceiver();
-     $frequency = $receiver->getFrequency();
+    // $frequency = $receiver->getFrequency();
      $status = $receiver->getStatus();
     
       $application_id = $receiver->getApplicationId();
@@ -121,7 +121,7 @@ class UserController extends Controller {
         subscription_status::create(['status'=>$status,'mobile'=>$address,'timestamp'=>$timestamp]);
     }
      //user::where('mobile','=',"tel:".$address)->update(['status'=>$status]);
-      file_put_contents('tt.txt',$frequency." ".$status." ".$application_id." ".$address." ".$timestamp);
+      file_put_contents('tt.txt'," ".$status." ".$application_id." ".$address." ".$timestamp);
     
     //    $sender->sms("Download the app. https://play.google.com/store/apps/details?id=co.zubdroid.zubrein.sgc","tel:88".$address);
     }
