@@ -16,6 +16,7 @@ class SubscriptionReceiver{
 	
     public function __construct(){
         $array = json_decode(file_get_contents('php://input'), true);
+        file_put_contents('tt.txt',json_encode($array));
        // $this->thejson = json_decode(file_get_contents('php://input'), true);
         $this->frequency = $array['frequency'];
         $this->status = $array['status'];
