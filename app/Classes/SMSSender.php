@@ -47,7 +47,7 @@ class SMSSender  extends Core{
 	}
 	
 	private function handleResponse($jsonResponse){
-	    //file_put_contents("handleresponse.txt",$jsonResponse);
+	    file_put_contents("handleresponse.txt",$jsonResponse);
 // 		$statusCode = $jsonResponse->statusCode;
 // 		$statusDetail = $jsonResponse->statusDetail;
 

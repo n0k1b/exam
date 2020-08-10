@@ -1,1 +1,0 @@
-{"statusCode":"S1000","requestId":"102008061023128968","statusDetail":"Request was successfully processed","destinationResponses":[{"statusCode":"S1000","timeStamp":"20200806102313","address":"tel:8801846576486","statusDetail":"Request was successfully processed","messageId":"102008061023128968"}],"version":"1.0"}
