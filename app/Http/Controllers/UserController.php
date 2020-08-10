@@ -111,7 +111,8 @@ class UserController extends Controller {
      $address = ltrim($address, '88'); 
      $timestamp = $receiver->getTimestamp();
 
-    // file_put_contents('ttest_subscription.txt',$status." ".$application_id." ".$address." ".$timestamp );
+     $myfile = fopen("SubscriptionNotificationLog.txt", "a+") or die("Unable to open file!");
+     fwrite($myfile,$receiver."\n");
      
     if(user::where('mobile','=',$address)->first())
     {
