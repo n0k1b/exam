@@ -99,8 +99,9 @@ class UserController extends Controller {
     {
     
     $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id,$this->app_password);
+    
+    $receiver 	= new SubscriptionReceiver();
     file_put_contents('ttest_subscription.txt','Hello');
-    // $receiver 	= new SubscriptionReceiver();
     // file_put_contents('ttt.txt',"hello");s
     // $frequency = $receiver->getFrequency();
      $status = $receiver->getStatus();
