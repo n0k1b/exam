@@ -239,7 +239,7 @@ class UserController extends Controller {
         $msg = "Your e-exam otp is ".$otp;
         try {
             $a = $sender->sms($msg, $mobile_number);
-            file_put_contents('test.txt',$a);
+           // file_put_contents('test.txt',$a);
             $user = otp_check::where('msisdn', '=', $request->msisdn)->first();
             if ($user) {
                 otp_check::where('msisdn', '=', $request->msisdn)->update(['otp' => $otp]);
