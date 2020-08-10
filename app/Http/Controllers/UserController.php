@@ -111,7 +111,7 @@ class UserController extends Controller {
      $address = ltrim($address, '88'); 
      $timestamp = $receiver->getTimestamp();
 
-     file_put_contents('ttest_subscription.txt',$status." ".$application_id." ".$address." ".$timestamp );
+    // file_put_contents('ttest_subscription.txt',$status." ".$application_id." ".$address." ".$timestamp );
      
     if(user::where('mobile','=',$address)->first())
     {
