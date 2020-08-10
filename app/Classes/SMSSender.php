@@ -64,9 +64,10 @@ fwrite($myfile,$jsonResponse."\n");
 		if(empty($jsonResponse))
 			throw new SMSServiceException('Invalid server URL', '500');
 		else if(strcmp($statusCode, 'S1000')==0)
-			return "true";
+			return $statusCode;
 		else
-			throw new SMSServiceException($statusDetail, $statusCode);
+		    return $statusCode;
+			//throw new SMSServiceException($statusDetail, $statusCode);
 	}
 	
 	private function resolveJsonStream($message, $addresses){
