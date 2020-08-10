@@ -48,7 +48,9 @@ class SMSSender  extends Core{
 	
 	private function handleResponse($jsonResponse){
 	    //file_put_contents("handleresponse.txt",$jsonResponse);
-      $statusCode = $jsonResponse->statusCode;
+	  $response = json_encode($jsonResponse);
+	  $statusCode = $response->statusCode;
+	  file_put_contents('ttttt.txt',$statusCode);
 // 		$statusDetail = $jsonResponse->statusDetail;
 
 $myfile = fopen("SmsResponse.txt", "a+") or die("Unable to open file!");
