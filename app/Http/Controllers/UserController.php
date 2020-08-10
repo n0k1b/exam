@@ -101,7 +101,7 @@ class UserController extends Controller {
     $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id,$this->app_password);
     
     $receiver 	= new SubscriptionReceiver();
-    file_put_contents('ttest_subscription.txt','Hello');
+   // file_put_contents('ttest_subscription.txt','Hello');
     // file_put_contents('ttt.txt',"hello");s
     // $frequency = $receiver->getFrequency();
      $status = $receiver->getStatus();
@@ -110,6 +110,8 @@ class UserController extends Controller {
      $address = $receiver->getsubscriberId();
      $address = ltrim($address, '88'); 
      $timestamp = $receiver->getTimestamp();
+
+     file_put_contents('ttest_subscription.txt',$status." ".$application_id." ".$address." ".$timestamp );
      
     if(user::where('mobile','=',$address)->first())
     {
@@ -126,7 +128,7 @@ class UserController extends Controller {
      //user::where('mobile','=',"tel:".$address)->update(['status'=>$status]);
     
     
-    //    $sender->sms("Download the app. https://play.google.com/store/apps/details?id=co.zubdroid.zubrein.sgc","tel:88".$address);
+    $sender->sms("Download the app. https://play.google.com/store/apps/details?id=co.zubdroid.zubrein.sgc","tel:88".$address);
     }
     public function subscription_free(Request $request) {
         $user_id = $request->user_id;
