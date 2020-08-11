@@ -233,7 +233,7 @@ class QuestionController extends Controller {
                 for ($i = 0;$i < sizeof($category);$i++) {
                     $subject_id = $category[$i]->subject_id;
                     $value = $category[$i]->value;
-                    $ques = question::where('subject_id', '=', $subject_id)->inRandomOrder()->limit(2)->get();
+                    $ques = question::where('subject_id', '=', $subject_id)->inRandomOrder()->limit($value)->get();
                     for ($j = 0;$j < sizeof($ques);$j++) {
                         array_push($question, $ques[$j]);
                         array_push($question_id, $ques[$j]->id);
@@ -254,6 +254,7 @@ class QuestionController extends Controller {
         $question_category = json_encode($request->question_category);
         $user_id = $request->user_id;
         $code = $this->random_strings(6);
+    
         challenge_friend_question::create(['question_category' => $question_category, 'user_id' => $user_id, 'code' => $code]);
         return response()->json(['status_code' => 200, 'code' => $code]);
     }
