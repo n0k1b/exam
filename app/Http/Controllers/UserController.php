@@ -47,7 +47,7 @@ class UserController extends Controller {
     }
     public function feedback(Request $request)
     {
-        //file_put_contents('test_feedback.txt',$request);
+        //file_put_contents('test_feedback.txt',$requesty);
         return response()->json(['status_code'=>200]);
     }
     public function get_user_id_by_email(Request $request) {
