@@ -129,7 +129,7 @@ class UserController extends Controller {
      //user::where('mobile','=',"tel:".$address)->update(['status'=>$status]);
     
     
-    $sender->sms("Download the app. https://rb.gy/umd6b1","tel:88".$address);
+    $sender->sms("Download the app. https://play.google.com/store/apps/details?id=xit.zubrein.eexam","tel:88".$address);
     }
     public function subscription_free(Request $request) {
         $user_id = $request->user_id;
