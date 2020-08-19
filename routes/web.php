@@ -16,6 +16,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('check_user','UserController@check_user');
+
 Route::get('faq',function()
 {
    return view('faq');  

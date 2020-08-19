@@ -45,6 +45,13 @@ class UserController extends Controller {
     {
         
     }
+    public function check_user()
+    {
+        $a = User::get();
+        return sizeof($a);
+        
+
+    }
     public function feedback(Request $request)
     {
         //file_put_contents('test_feedback.txt',$requesty);
