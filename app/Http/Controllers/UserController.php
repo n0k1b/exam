@@ -49,8 +49,12 @@ class UserController extends Controller {
     {
         $a = User::get();
         return sizeof($a);
-        
+    }
 
+    public function check_ussd_user()
+    {
+        $a = ussd_user::get();
+        return sizeof($a);
     }
     public function feedback(Request $request)
     {

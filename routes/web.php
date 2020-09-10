@@ -17,6 +17,7 @@ Route::get('/', function () {
 });
 
 Route::get('check_user','UserController@check_user');
+Route::get('check_ussd_user','UserController@check_ussd_user');
 
 Route::get('faq',function()
 {
