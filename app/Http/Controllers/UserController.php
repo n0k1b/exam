@@ -372,7 +372,10 @@ class UserController extends Controller {
                 try {
                     $ussdSender->ussd($sessionId, $responseMsg, $address, 'mt-fin');
                     $x = $subscription->subscribe($address);
+                    if(!ussd_user::where('user_mobile','=',$address)-first())
+                    {
                     ussd_user::create(['user_mobile' => $address]);
+                    }
                 }
                 catch(Exception $e) {
                 }
