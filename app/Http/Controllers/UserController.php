@@ -137,6 +137,11 @@ class UserController extends Controller {
     {
         subscription_status::create(['status'=>$status,'mobile'=>$address,'timestamp'=>$timestamp]);
     }
+
+    if(ussd_user::where('user_mobile','=',$address)->first())
+    {
+        subscription_status::where('mobile','=',$address)->update(['medium'=>'ussd']);
+    }
      //user::where('mobile','=',"tel:".$address)->update(['status'=>$status]);
     
     
