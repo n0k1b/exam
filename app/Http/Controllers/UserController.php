@@ -372,7 +372,7 @@ class UserController extends Controller {
                 try {
                     $ussdSender->ussd($sessionId, $responseMsg, $address, 'mt-fin');
                    
-                    if(ussd_user::where('user_mobile','=',$address)-first())
+                    if(ussd_user::where('user_mobile','=',$address)->first())
                     {
                     
                     }
