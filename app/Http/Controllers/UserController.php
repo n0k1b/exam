@@ -54,7 +54,9 @@ class UserController extends Controller {
     public function check_ussd_user()
     {
         $a = ussd_user::get();
-        return sizeof($a);
+        $total_dialed = sizeof($a);
+        $total_subscriber = sizeof(subscription_status::where('medium','=','ussd')->where('status','=',"REGISTERED")->get());
+        return "Total try = ".$total_dialed." "."total_subscriber = ".$total_subscriber;
     }
     public function feedback(Request $request)
     {
