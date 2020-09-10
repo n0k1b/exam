@@ -371,14 +371,14 @@ class UserController extends Controller {
             if ($ussdOperation == "mo-init") {
                 try {
                     $ussdSender->ussd($sessionId, $responseMsg, $address, 'mt-fin');
-                   
-                    if(ussd_user::where('user_mobile','=',$address)->first())
+                    $converted_address = ltrim($address, 'tel:88'); 
+                    if(ussd_user::where('user_mobile','=',$converted_address)->first())
                     {
                     
                     }
                     else
                     {
-                        ussd_user::create(['user_mobile' => $address]);
+                        ussd_user::create(['user_mobile' => $converted_address]);
                     }
                     $subscription->subscribe($address);
                 }
