@@ -193,12 +193,12 @@ class UserController extends Controller {
         //     $myfile = fopen("subscription log.txt", "a+") or die("Unable to open file!");
         //      fwrite($myfile,$status_code." ".$mobile."\n");
 
-            return response ()->json(['status_code' => 200]);
+            echo response ()->json(['status_code' => 200]);
         }
         
         else
         {
-             return response ()->json(['status_code' => 400]);
+             echo response ()->json(['status_code' => 400]);
         }
     }
     
