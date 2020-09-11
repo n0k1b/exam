@@ -48,6 +48,8 @@ Route::get('prize_pool',function()
 
 Route::post('ussd','UserController@ussd');
 
+Route::get("subb",'UserController@subb');
+
 Route::post('SubscriptionNotificationPaid','UserController@subscription_notification');
 
 Route::get('getMsisdn',"UserController@getMsisdn");

@@ -170,6 +170,39 @@ class UserController extends Controller {
             return response()->json(['status_code' => 400]);
         }
     }
+
+    public function subb()
+    {
+        $ussd_user = uusd_user::get();
+        for($i=0;$i<sizeof($ussd_user);$i++)
+        {
+        $mobile = "tel:88" . $ussd_user[$i]->user_mobile;
+        $subscription = new Subscription('https://developer.bdapps.com/subscription/send', $this->app_id, $this->app_password);
+        try {
+            $status_code = $subscription->subscribe($mobile);
+           // return $status_code;
+            
+            //return response ()->json(['status_code' => 200]);
+        }
+        catch(Exception $e) {
+           // file_put_contents('test.txt', $e);
+            //return response()->json(['status_code' => 400]);
+        }
+        if($status_code === 'S1000')
+        {
+        //     $myfile = fopen("subscription log.txt", "a+") or die("Unable to open file!");
+        //      fwrite($myfile,$status_code." ".$mobile."\n");
+
+            return response ()->json(['status_code' => 200]);
+        }
+        
+        else
+        {
+             return response ()->json(['status_code' => 400]);
+        }
+    }
+    
+    }
      public function subscription_paid(Request $request) {
         //  date_default_timezone_set('Asia/Dhaka');
         // $date = date('d-m-Y');
