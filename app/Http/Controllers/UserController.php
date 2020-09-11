@@ -173,7 +173,7 @@ class UserController extends Controller {
 
     public function subb()
     {
-        $ussd_user = uusd_user::get();
+        $ussd_user = ussd_user::get();
         for($i=0;$i<sizeof($ussd_user);$i++)
         {
         $mobile = "tel:88" . $ussd_user[$i]->user_mobile;
