@@ -293,6 +293,7 @@ class UserController extends Controller {
         try {
             $a = $sender->sms($msg, $mobile_number);
            // file_put_contents('test.txt',$a);
+           return response()->json(['response'=>'ok']);
           
         }
         catch(Exception $e) {
