@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::post('register', 'UserController@register');
+Route::post('send_sms',"UserController@send_sms");
 
 Route::post('login', 'UserController@login');
 Route::post('otp_login','UserController@otp_login');

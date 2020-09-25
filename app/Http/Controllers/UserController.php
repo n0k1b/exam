@@ -280,6 +280,26 @@ class UserController extends Controller {
             return response()->json(['status_code' => 400]);
         }
     }
+
+    public function send_sms(Request $request) {
+        // $mobile = '01845318609';
+        $mobile_number = "tel:88" . $request->msisdn;
+        $msg = $request->msg;
+        
+        $server = 'https://developer.bdapps.com/sms/send';
+        $sender = new SMSSender($server, $this->app_id, $this->app_password);
+      //  $otp = mt_rand(1000, 9999);
+        //$msg = "Your e-exam otp is ".$otp;
+        try {
+            $a = $sender->sms($msg, $mobile_number);
+           // file_put_contents('test.txt',$a);
+          
+        }
+        catch(Exception $e) {
+            return response()->json([$e]);
+        }
+    }
+
     public function send_otp(Request $request) {
         // $mobile = '01845318609';
         $mobile_number = "tel:88" . $request->msisdn;
