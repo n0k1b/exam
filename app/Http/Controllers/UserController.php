@@ -406,7 +406,7 @@ class UserController extends Controller {
     }
 
     public function  arif_ussd() {
-        //return $a;
+        file_put_contents('arif_vai_test.txt',"hello");
         $production = true;
         if ($production == false) {
             $ussdserverurl = 'http://localhost:7000/ussd/send';
@@ -429,6 +429,11 @@ class UserController extends Controller {
             $sessionId = $receiver->getSessionId(); // get the session ID;
             $ussdOperation = $receiver->getUssdOperation(); // get the ussd operation
             //file_put_contents('status.txt',$address);
+            $converted_address = ltrim($address, 'tel:');
+            $result = DB::table('arif_vai')->where('number',$converted_address)->first();
+            $column_b = $result->columnb;
+            $column_c = $result->columnc;
+            //$responseMsg = ""
             $responseMsg = " Thank you for your Subscription.";
             if ($ussdOperation == "mo-init") {
                 try {
