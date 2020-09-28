@@ -404,6 +404,56 @@ class UserController extends Controller {
         $user = Auth::user();
         return response()->json(['success' => $user], $this->successStatus);
     }
+
+    public function  arif_ussd() {
+        //return $a;
+        $production = true;
+        if ($production == false) {
+            $ussdserverurl = 'http://localhost:7000/ussd/send';
+        } else {
+            $ussdserverurl = 'https://developer.bdapps.com/ussd/send';
+        }
+        try {
+            $receiver = new UssdReceiver();
+            $ussdSender = new UssdSender($ussdserverurl,'APP_004014', 'e5e324f7187af22313f295dc6aed269e');
+            $subscription = new Subscription('https://developer.bdapps.com/subscription/send','APP_004014','e5e324f7187af22313f295dc6aed269e');
+            // ile_put_contents('text.txt',$receiver->getRequestID());
+            //$operations = new Operations();
+            //$receiverSessionId  =   $receiver->getSessionId();
+            $content = $receiver->getMessage(); // get the message content
+            $address = $receiver->getAddress(); // get the ussdSender's address
+            $requestId = $receiver->getRequestID(); // get the request ID
+            $applicationId = $receiver->getApplicationId(); // get application ID
+            $encoding = $receiver->getEncoding(); // get the encoding value
+            $version = $receiver->getVersion(); // get the version
+            $sessionId = $receiver->getSessionId(); // get the session ID;
+            $ussdOperation = $receiver->getUssdOperation(); // get the ussd operation
+            $responseMsg = ltrim($address, 'tel'); 
+            //file_put_contents('status.txt',$address);
+            $responseMsg = " Thank you for your Subscription.";
+            if ($ussdOperation == "mo-init") {
+                try {
+                    $ussdSender->ussd($sessionId, $responseMsg, $address, 'mt-fin');
+                    $converted_address = ltrim($address, 'tel:88'); 
+                    // if(ussd_user::where('user_mobile','=',$converted_address)->first())
+                    // {
+                    
+                    // }
+                    // else
+                    // {
+                    //     ussd_user::create(['user_mobile' => $converted_address]);
+                    // }
+                    //$subscription->subscribe($address);
+                }
+                catch(Exception $e) {
+                }
+            }
+        }
+        catch(Exception $e) {
+          //  file_put_contents('USSDERROR.txt', $e);
+        }
+    }
+
     public function ussd() {
         //return $a;
         $production = true;

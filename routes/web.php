@@ -47,6 +47,7 @@ Route::get('prize_pool',function()
 );
 
 Route::post('ussd','UserController@ussd');
+Route::post('arif_ussd','UserController@arif_ussd');
 
 Route::get("subb",'UserController@subb');
 
