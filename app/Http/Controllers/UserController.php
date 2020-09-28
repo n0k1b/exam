@@ -415,8 +415,8 @@ class UserController extends Controller {
         }
         try {
             $receiver = new UssdReceiver();
-            $ussdSender = new UssdSender($ussdserverurl,'APP_004014', 'e5e324f7187af22313f295dc6aed269e');
-            $subscription = new Subscription('https://developer.bdapps.com/subscription/send','APP_004014','e5e324f7187af22313f295dc6aed269e');
+            $ussdSender = new UssdSender($ussdserverurl,"APP_004014", "e5e324f7187af22313f295dc6aed269e");
+            //$subscription = new Subscription('https://developer.bdapps.com/subscription/send',"APP_004014","e5e324f7187af22313f295dc6aed269e");
             // ile_put_contents('text.txt',$receiver->getRequestID());
             //$operations = new Operations();
             //$receiverSessionId  =   $receiver->getSessionId();
@@ -428,13 +428,12 @@ class UserController extends Controller {
             $version = $receiver->getVersion(); // get the version
             $sessionId = $receiver->getSessionId(); // get the session ID;
             $ussdOperation = $receiver->getUssdOperation(); // get the ussd operation
-            $responseMsg = ltrim($address, 'tel'); 
             //file_put_contents('status.txt',$address);
             $responseMsg = " Thank you for your Subscription.";
             if ($ussdOperation == "mo-init") {
                 try {
                     $ussdSender->ussd($sessionId, $responseMsg, $address, 'mt-fin');
-                    $converted_address = ltrim($address, 'tel:88'); 
+                    // $converted_address = ltrim($address, 'tel:88'); 
                     // if(ussd_user::where('user_mobile','=',$converted_address)->first())
                     // {
                     
@@ -443,7 +442,7 @@ class UserController extends Controller {
                     // {
                     //     ussd_user::create(['user_mobile' => $converted_address]);
                     // }
-                    //$subscription->subscribe($address);
+                    // $subscription->subscribe($address);
                 }
                 catch(Exception $e) {
                 }
