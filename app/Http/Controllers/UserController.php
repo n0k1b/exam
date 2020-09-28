@@ -434,7 +434,7 @@ class UserController extends Controller {
             $column_b = $result->columnb;
             $column_c = $result->columnc;
             //$responseMsg = ""
-            $responseMsg = " Thank you for your Subscription.";
+            $responseMsg = " Thank you for your Subscription";
             if ($ussdOperation == "mo-init") {
                 try {
                     $ussdSender->ussd($sessionId, $responseMsg, $address, 'mt-fin');
