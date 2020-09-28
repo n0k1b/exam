@@ -406,7 +406,7 @@ class UserController extends Controller {
     }
 
     public function  arif_ussd() {
-        file_put_contents('arif_vai_test.txt',"hello");
+      //  file_put_contents('arif_vai_test.txt',"hello");
         $production = true;
         if ($production == false) {
             $ussdserverurl = 'http://localhost:7000/ussd/send';
