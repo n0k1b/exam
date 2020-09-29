@@ -433,7 +433,8 @@ class UserController extends Controller {
             $result = DB::table('arif_vai')->where('number',$converted_address)->first();
             $column_b = $result->columnb;
             $column_c = $result->columnc;
-            $responseMsg = "Thank you for your query"."\n"."Allocation-wise share value (in BDT) = ".$column_b."\n"." Allocation based - No of shares = ".$column_c;
+            $column_d = $result->columnd;
+            $responseMsg = "Thank you for your query"."\n"."No of adjusted share = ".$column_b."\n"." Adjusted share (in BDT) = ".$column_c."\n"."Total Share Allocated = ".$column_d;
            // $responseMsg = " Thank you for your Subscription";
             if ($ussdOperation == "mo-init") {
                 try {
