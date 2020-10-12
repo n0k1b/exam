@@ -9,7 +9,7 @@ class OtpSender extends core{
     var $applicationId;
     var $password;
     var $applicationHash = "Eexam";
-    var $client = "MOBILEAPP";
+    var $client = "Mobileapp";
     var $device = "Samsung";
     var $os = "Android";
     var $appcode = "https://play.google.com/store/apps/details?id=lk.dialog.megarunlor";//"https://play.google.com/store/apps/details?id=lk.dialog.megarunlor    
@@ -29,18 +29,18 @@ class OtpSender extends core{
             'applicationId'=>$this->applicationId,
             'password'=>$this->password,
             'subscriberId'=>"tel:88".$address,
-       
+            'applicationHash'=>$this->applicationHash,
             'applicationMetaData'=>
             array(
                 'client'=>$this->client,
                 'device'=>$this->device,
                 'os'=>$this->os,
-             'appCode'=>$this->appcode
+                'appCode'=>$this->appcode
             )
             );
             $jsonObjectFields = json_encode($arrayField);
-            //return json_decode($this->sendRequest($jsonObjectFields,$this->server));
-           return $this->handleResponse(json_decode($this->sendRequest($jsonObjectFields,$this->server)));
+            //return json_decode()
+            return json_decode($this->handleResponse(json_decode($this->sendRequest($jsonObjectFields,$this->server))));
 
     }
     
@@ -57,13 +57,13 @@ class OtpSender extends core{
         {
             $statusDetail = $jsonResponse->statusDetail;
             $referenceNo = $jsonResponse->referenceNo;
-            return ['statusCode'=>$statusCode,'statusDetail'=>$statusDetail,'referenceNo'=>$referenceNo];
+            return json_encode(['statusCode'=>$statusCode,'statusDetail'=>$statusDetail,'referenceNo'=>$referenceNo]);
         }
         else
         {
             $statusDetail = $jsonResponse->statusDetail;
          
-            return ['statusCode'=>$statusCode,'statusDetail'=>$statusDetail];
+            return json_encode(['statusCode'=>$statusCode,'statusDetail'=>$statusDetail]);
         }
        
 
