@@ -24,6 +24,7 @@ use App\Classes\SubscriptionReceiver;
 use App\ussd_user;
 use App\otp_check;
 use App\subscription_status;
+use App\OtpSender;
 class UserController extends Controller {
     //
     public $successStatus = 200;
@@ -40,6 +41,13 @@ class UserController extends Controller {
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
+    }
+
+    public function send_bdapps_otp(Request $request)
+    {
+        $address = $request->mobile;
+        $otp_sender = new OtpSender($this->app_id,$this->app_password);
+        $status_code = $otp_sender->status_code;
     }
     public function test()
     {
@@ -202,6 +210,27 @@ class UserController extends Controller {
         }
     }
     
+    }
+
+    public function send_sms_all_user()
+    {
+        //$mobile_number = "tel:88" . $request->msisdn;
+        $sender = new SMSSender("https://developer.bdapps.com/sms/send", $this->app_id,$this->app_password);
+        $msg = "Download the app. https://play.google.com/store/apps/details?id=xit.zubrein.eexam" ;
+        
+        //$server = 'https://developer.bdapps.com/sms/send';
+       // $sender = new SMSSender($server, $this->app_id, $this->app_password);
+      //  $otp = mt_rand(1000, 9999);
+        //$msg = "Your e-exam otp is ".$otp;
+        try {
+            $a = $sender->sms($br);
+           // file_put_contents('test.txt',$a);
+           return response()->json(['response'=>'ok']);
+          
+        }
+        catch(Exception $e) {
+            return response()->json([$e]);
+        }
     }
      public function subscription_paid(Request $request) {
         //  date_default_timezone_set('Asia/Dhaka');

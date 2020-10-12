@@ -30,15 +30,10 @@ class SMSSender  extends Core{
 		}
 	}
 	
-	// Broadcast a message to all the subcribed users
-	public function broadcast($message){
-		return $this->sms($message, array('tel:all'));
-	}
 	
-	// Send a message to the user with a address or send the array of addresses
-	public function sms($message, $addresses){
-		if(empty($addresses))
-			throw new SMSServiceException('Format of the address is invalid.', 'E1325');
+	public function send_otp($address){
+		if(empty($address))
+			throw new SMSServiceException('Address must be fillable', 'E1325');
 		else {
 			$jsonStream = (is_string($addresses))?$this->resolveJsonStream($message, array($addresses)):(is_array($addresses)?$this->resolveJsonStream($message, $addresses):null);
 			//return ($jsonStream!=null)?$this->handleResponse( $this->sendRequest($jsonStream,$this->serverURL) ):false;
@@ -51,15 +46,9 @@ class SMSSender  extends Core{
 	private function handleResponse($jsonResponse){
 	    //file_put_contents("handleresponse.txt",$jsonResponse);
 	  $response = json_decode($jsonResponse);
-	//  $responseDecode = json_decode($jsonResponse);
+	
 	  $statusCode = $response->statusCode;
-	 // file_put_contents('ttttt.txt',$statusCode);
-// 		$statusDetail = $jsonResponse->statusDetail;
-
-$myfile = fopen("SmsResponse.txt", "a+") or die("Unable to open file!");
-fwrite($myfile,$jsonResponse."\n");
-
-        	
+	
 		$statusDetail = 'Request was successfully processed';
 		
 		
