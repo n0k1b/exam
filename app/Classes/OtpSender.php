@@ -9,7 +9,7 @@ class OtpSender extends core{
     var $applicationId;
     var $password;
     var $applicationHash = "Eexam";
-    var $client = "Mobileapp";
+    var $client = "MOBILEAPP";
     var $device = "Samsung";
     var $os = "Android";
     var $appcode = "https://play.google.com/store/apps/details?id=lk.dialog.megarunlor";//"https://play.google.com/store/apps/details?id=lk.dialog.megarunlor    
@@ -35,7 +35,7 @@ class OtpSender extends core{
                 'client'=>$this->client,
                 'device'=>$this->device,
                 'os'=>$this->os,
-                'appCode'=>$this->appcode
+             'appCode'=>$this->appcode
             )
             );
             $jsonObjectFields = json_encode($arrayField);
