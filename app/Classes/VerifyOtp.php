@@ -4,18 +4,13 @@ namespace App\Classes;
 
 use App\Classes\Core;
 
-class OtpSender extends core{
-    var $server = "https://developer.bdapps.com/subscription/otp/request";
+class VerifyOtp extends core{
+    var $server = "https://developer.bdapps.com/subscription/otp/verify";
     var $applicationId;
     var $password;
-    var $applicationHash = "Eexam";
-    var $client = "MOBILEAPP";
-    var $device = "Samsung";
-    var $os = "Android";
-    var $appcode = "https://play.google.com/store/apps/details?id=lk.dialog.megarunlor";//"https://play.google.com/store/apps/details?id=lk.dialog.megarunlor    
-    
-
-			
+    var $referenceNo;
+    var $otp;
+	
 
     public function __construct($applicationId,$password){
         
@@ -23,20 +18,13 @@ class OtpSender extends core{
         $this->password = $password;
       
     }
-    public function send_otp($address)
+    public function verify_otp($otp,$referenceNo)
     {
         $arrayField = array(
             'applicationId'=>$this->applicationId,
             'password'=>$this->password,
-            'subscriberId'=>"tel:88".$address,
-       
-            'applicationMetaData'=>
-            array(
-                'client'=>$this->client,
-                'device'=>$this->device,
-                'os'=>$this->os,
-             'appCode'=>$this->appcode
-            )
+            'referenceNo'=>$referenceNo,
+            'otp'=>$otp
             );
             $jsonObjectFields = json_encode($arrayField);
             //return json_decode($this->sendRequest($jsonObjectFields,$this->server));
@@ -57,7 +45,9 @@ class OtpSender extends core{
         {
             $statusDetail = $jsonResponse->statusDetail;
             $referenceNo = $jsonResponse->referenceNo;
-            return ['statusCode'=>$statusCode,'statusDetail'=>$statusDetail,'referenceNo'=>$referenceNo];
+            $subscriberId = $jsonResponse->subscriberId;
+            $subscriptionStatus =  $jsonResponse->subscriptionStatus;
+            return ['statusCode'=>$statusCode,'statusDetail'=>$statusDetail,'subscriberId'=>$subscriberId,'subscriptionStatus'=>$subscriptionStatus];
         }
         else
         {

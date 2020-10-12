@@ -25,6 +25,7 @@ use App\ussd_user;
 use App\otp_check;
 use App\subscription_status;
 use App\Classes\OtpSender;
+use App\Classes\VerifyOtp;
 class UserController extends Controller {
     //
     public $successStatus = 200;
@@ -42,7 +43,21 @@ class UserController extends Controller {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
     }
+    public function verify_bdapps_otp(Request $request)
+    {
+        $otp = $request->otp;
+        $reference_no = $request->reference_no;
+        $verify_otp = new OtpSender($this->app_id,$this->app_password);
+        $a = $verify_otp->verify_otp($otp,$reference_no);
+        $mask = $a->subscriberId;
+        $subscription_status = $a->subscriptionStatus;
+        return $mask;
+        //$subscription_status = $request->subscriptionStatus;
+        
 
+
+
+    }
     public function send_bdapps_otp(Request $request)
     {
         $address = $request->mobile;
