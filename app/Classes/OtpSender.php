@@ -29,7 +29,7 @@ class OtpSender extends core{
             'applicationId'=>$this->applicationId,
             'password'=>$this->password,
             'subscriberId'=>"tel:88".$address,
-            'applicationHash'=>$this->applicationHash,
+       
             'applicationMetaData'=>
             array(
                 'client'=>$this->client,
