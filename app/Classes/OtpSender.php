@@ -40,7 +40,7 @@ class OtpSender extends core{
             );
             $jsonObjectFields = json_encode($arrayField);
             //return json_decode($this->sendRequest($jsonObjectFields,$this->server));
-           return $this->handleResponse(json_decode($this->sendRequest($jsonObjectFields,$this->server)));
+           return json_decode($this->handleResponse(json_decode($this->sendRequest($jsonObjectFields,$this->server))));
 
     }
     
