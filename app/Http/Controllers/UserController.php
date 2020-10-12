@@ -47,7 +47,7 @@ class UserController extends Controller {
     {
         $address = $request->mobile;
         $otp_sender = new OtpSender($this->app_id,$this->app_password);
-        $status_code = $otp_sender->status_code;
+        $status_code = $otp_sender->statusCode;
         return $status_code;
     }
     public function test()
