@@ -24,7 +24,7 @@ use App\Classes\SubscriptionReceiver;
 use App\ussd_user;
 use App\otp_check;
 use App\subscription_status;
-use App\OtpSender;
+use App\Classes\OtpSender;
 class UserController extends Controller {
     //
     public $successStatus = 200;
