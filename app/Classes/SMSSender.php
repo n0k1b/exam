@@ -27,6 +27,7 @@ class SMSSender  extends Core{
 			$this->applicationId = $applicationId;
 			$this->password = $password;
 			$this->serverURL = $serverURL;
+		//hello
 		}
 	}
 	
