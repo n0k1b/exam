@@ -3,7 +3,7 @@
 namespace App\Classes;
 
 
-
+use Exception;
 /********* This is the Core Class **********/
 class Core
 {
