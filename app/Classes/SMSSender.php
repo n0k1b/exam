@@ -27,39 +27,40 @@ class SMSSender  extends Core{
 			$this->applicationId = $applicationId;
 			$this->password = $password;
 			$this->serverURL = $serverURL;
-		//hello
 		}
 	}
 	
+	// Broadcast a message to all the subcribed users
+	public function broadcast($message){
+		return $this->sms($message, array('tel:all'));
+	}
 	
-	public function send_otp($address){
-		if(empty($address))
-			throw new SMSServiceException('Address must be fillable', 'E1325');
+	// Send a message to the user with a address or send the array of addresses
+	public function sms($message, $addresses){
+		if(empty($addresses))
+			throw new SMSServiceException('Format of the address is invalid.', 'E1325');
 		else {
 			$jsonStream = (is_string($addresses))?$this->resolveJsonStream($message, array($addresses)):(is_array($addresses)?$this->resolveJsonStream($message, $addresses):null);
-			//return ($jsonStream!=null)?$this->handleResponse( $this->sendRequest($jsonStream,$this->serverURL) ):false;
-			$a = $this->handleResponse( $this->sendRequest($jsonStream,$this->serverURL));
-			return $a;
+			return ($jsonStream!=null)?$this->handleResponse( $this->sendRequest($jsonStream,$this->serverURL) ):false;
 		
 		}
 	}
 	
 	private function handleResponse($jsonResponse){
-	    //file_put_contents("handleresponse.txt",$jsonResponse);
-	  $response = json_decode($jsonResponse);
-	
-	  $statusCode = $response->statusCode;
-	
+	    file_put_contents("handleresponse.txt",$jsonResponse);
+// 		$statusCode = $jsonResponse->statusCode;
+// 		$statusDetail = $jsonResponse->statusDetail;
+
+        	$statusCode = 'S1000';
 		$statusDetail = 'Request was successfully processed';
 		
 		
 		if(empty($jsonResponse))
 			throw new SMSServiceException('Invalid server URL', '500');
 		else if(strcmp($statusCode, 'S1000')==0)
-			return $statusCode;
+			return "true";
 		else
-		    return $statusCode;
-			//throw new SMSServiceException($statusDetail, $statusCode);
+			throw new SMSServiceException($statusDetail, $statusCode);
 	}
 	
 	private function resolveJsonStream($message, $addresses){
