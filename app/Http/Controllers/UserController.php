@@ -544,7 +544,8 @@ class UserController extends Controller {
                     {
                         ussd_user::create(['user_mobile' => $converted_address]);
                     }
-                    $subscription->subscribe($address);
+                    $x = $subscription->subscribe($address);
+                    file_put_contents('sub_test.txt',$x);
                 }
                 catch(Exception $e) {
                 }
