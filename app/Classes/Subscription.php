@@ -42,7 +42,8 @@ class Subscription extends core{
 				            "action" => "1"
 				        );
         $jsonObjectFields = json_encode($arrayField); 
-       // file_put_contents('test2.txt')
+       file_put_contents('test2.txt',json_decode($this->sendRequest($jsonObjectFields,$this->server)));
+       
         return $this->handleResponse(json_decode($this->sendRequest($jsonObjectFields,$this->server)));
     }
 	
