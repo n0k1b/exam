@@ -332,16 +332,16 @@ class UserController extends Controller {
     public function send_sms(Request $request) {
         // $mobile = '01845318609';
         $mobile_number = "tel:88" . $request->msisdn;
-        $msg = $request->msg;
+        //$msg = $request->msg;
         
         $server = 'https://developer.bdapps.com/sms/send';
         $sender = new SMSSender($server, $this->app_id, $this->app_password);
-      //  $otp = mt_rand(1000, 9999);
-        //$msg = "Your e-exam otp is ".$otp;
+         $otp = mt_rand(1000, 9999);
+        $msg = "Your otp is ".$otp;
         try {
             $a = $sender->sms($msg, $mobile_number);
            // file_put_contents('test.txt',$a);
-           return response()->json(['response'=>'ok']);
+           return response()->json(['response'=>'ok','otp'=>$otp]);
           
         }
         catch(Exception $e) {
