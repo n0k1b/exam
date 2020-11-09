@@ -336,7 +336,7 @@ class UserController extends Controller {
         
         $server = 'https://developer.bdapps.com/sms/send';
         $sender = new SMSSender($server, $this->app_id, $this->app_password);
-        //  $otp = mt_rand(1000, 9999);
+         $otp = mt_rand(1000, 9999);
         // $msg = "Your otp is ".$otp;
         try {
             $a = $sender->sms($msg, $mobile_number);
