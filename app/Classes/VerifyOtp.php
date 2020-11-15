@@ -47,13 +47,13 @@ class VerifyOtp extends core{
             $referenceNo = $jsonResponse->referenceNo;
             $subscriberId = $jsonResponse->subscriberId;
             $subscriptionStatus =  $jsonResponse->subscriptionStatus;
-            return ['statusCode'=>$statusCode,'statusDetail'=>$statusDetail,'subscriberId'=>$subscriberId,'subscriptionStatus'=>$subscriptionStatus];
+            return json_encode(['statusCode'=>$statusCode,'statusDetail'=>$statusDetail,'subscriberId'=>$subscriberId,'subscriptionStatus'=>$subscriptionStatus]);
         }
         else
         {
             $statusDetail = $jsonResponse->statusDetail;
          
-            return ['statusCode'=>$statusCode,'statusDetail'=>$statusDetail];
+            return json_encode(['statusCode'=>$statusCode,'statusDetail'=>$statusDetail]);
         }
        
 
