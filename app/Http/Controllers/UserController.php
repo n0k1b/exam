@@ -65,8 +65,8 @@ class UserController extends Controller {
         $a = $otp_sender->send_otp($address);
         $status_code = $a->statusCode;
         $reference_no = $a->referenceNo;
-        return $reference_no;
-        //return json_encode($a);
+       // return $reference_no;
+        return json_encode($a);
     }
     public function test()
     {
