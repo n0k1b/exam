@@ -63,8 +63,7 @@ class UserController extends Controller {
         $address = $request->mobile;
         $otp_sender = new OtpSender($this->app_id,$this->app_password);
         $a = $otp_sender->send_otp($address);
-        $status_code = $a->statusCode;
-        $reference_no = $a->referenceNo;
+     
        // return $reference_no;
         return json_encode($a);
     }
