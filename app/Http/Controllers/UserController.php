@@ -47,7 +47,7 @@ class UserController extends Controller {
     {
         $otp = $request->otp;
         $reference_no = $request->reference_no;
-        $verify_otp = new OtpSender($this->app_id,$this->app_password);
+        $verify_otp = new VerifyOtp($this->app_id,$this->app_password);
         $a = $verify_otp->verify_otp($otp,$reference_no);
         // $mask = $a->subscriberId;
         // $subscription_status = $a->subscriptionStatus;
