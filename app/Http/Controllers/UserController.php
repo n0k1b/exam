@@ -51,7 +51,7 @@ class UserController extends Controller {
         $a = $verify_otp->verify_otp($otp,$reference_no);
         // $mask = $a->subscriberId;
         // $subscription_status = $a->subscriptionStatus;
-        return $mask;
+        return json_encode($a);
         //$subscription_status = $request->subscriptionStatus;
         
 
