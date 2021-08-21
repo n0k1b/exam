@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
 /*
@@ -19,6 +19,8 @@ Route::post('send_bdapps_otp','UserController@send_bdapps_otp');
 Route::post('verify_bdapps_otp','UserController@verify_bdapps_otp');
 Route::post('login', 'UserController@login');
 Route::post('otp_login','UserController@otp_login');
+
+Route::get("get_question_test",'QuestionController@get_question_test');
 
 Route::post('send_otp','UserController@send_otp');
 
@@ -42,74 +44,74 @@ Route::group(['middleware' => 'auth:api'], function()
     Route::post('manual_otp_check', 'UserController@manual_otp_check');
     Route::post('set_withdraw_number', 'UserController@set_withdraw_number');
    Route::post('details', 'UserController@details');
-   
-  
+
+
 Route::post('get_details_by_user_id','UserController@get_details_by_user_id');
-    
+
    Route::post('question_for_regular_exam',"QuestionController@question_for_regular_exam");
-   
+
    Route::post('get_live_quiz_news','PointController@get_live_quiz_news');
-   
+
   // Route::post('edit_profile','UserController@edit_profile');
-   
+
    Route::post("get_question",'QuestionController@get_question');
-   
+
    Route::post("submit_answer",'QuestionController@submit_answer');
-   
+
    Route::post("withdraw_request",'PointController@withdraw_request');
-   
+
     Route::post("get_profile",'UserController@get_profile');
-    
+
      Route::post("leaderboard",'PointController@leaderboard');
-     
+
      Route::post("live_leaderboard",'PointController@live_leaderboard');
-     
-     
+
+
      Route::post('get_code','QuestionController@get_code');
-     
+
       Route::post('get_challenge_question','QuestionController@get_challenge_question');
       Route::post('submit_answer_challenge_question','QuestionController@submit_answer_challenge_question');
-      
-     
+
+
      Route::post("live_contest",'PointController@live_contest');
-     
+
      Route::post('live_contest_answer_submit','PointController@live_contest_answer_submit');
-     
-     
+
+
      Route::post('check_subscription','QuestionController@check_subscription');
-     
+
      Route::post('subscription_free','UserController@subscription_free');
        Route::post('subscription_paid','UserController@subscription_paid');
-     
+
      Route::post('cass_charge_regular','QuestionController@caas_charge_regular');
-     
+
      Route::post('subjects','QuestionController@get_subject');
       Route::post('challenge_friend_subjects','QuestionController@get_subject_challenge_friend');
      Route::post('get_my_challenge','QuestionController@get_my_challenge');
-     
+
      Route::post('get_accepted_challenge','QuestionController@get_accepted_challenge');
-     
+
      Route::post('get_all_stat','QuestionController@get_all_stat');
-     
+
      Route::post('delete_challenge','QuestionController@delete_challenge');
       Route::post('feedback','UserController@feedback');
-     
+
         Route::post('edit_profile','UserController@edit_profile');
-        
-        
+
+
          Route::post('caas_charge_mobile_number','QuestionController@caas_charge_mobile_number');
-         
+
            Route::post('check_availability','QuestionController@check_availability');
-           
-         Route::post('SubscriptionNotificationPaid','UserController@subscription_notification');  
-     
-       
-   
-    
-   
-   
-   
-   
+
+         Route::post('SubscriptionNotificationPaid','UserController@subscription_notification');
+
+
+
+
+
+
+
+
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

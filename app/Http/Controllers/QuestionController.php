@@ -21,7 +21,7 @@ use App\challenge_friend_answer;
 use App\exam_count;
 $exam_count_paid = 0;
 class QuestionController extends Controller {
-   
+
     public $app_id = "APP_005968";
     public $app_password = "186568e5974976fc5ae362d9496a704f";
     public $app_id_subscription_free = 'APP_028448';
@@ -34,7 +34,7 @@ class QuestionController extends Controller {
         // of specified length
         return substr(str_shuffle($str_result), 0, $length_of_string);
     }
-    
+
     function get_subject_name($subject_id)
     {
         $subject_name = DB::table('tbl_subject')->where('id','=',$subject_id)->first()->subject_name;
@@ -42,16 +42,16 @@ class QuestionController extends Controller {
     }
     public function overall_stat($user_id) {
          $subjects = DB::table('tbl_subject')->where('status','=',1)->get();
-         
+
          $response = array();
-         
+
          for($i=0;$i<sizeof($subjects);$i++)
          {
-             
-   
-           $sql = "SELECT subject_id,(SUM(answer_verdict)*100/COUNT(id)) as percentage from (SELECT id,subject_id,t1.answer_verdict from ques 
+
+
+           $sql = "SELECT subject_id,(SUM(answer_verdict)*100/COUNT(id)) as percentage from (SELECT id,subject_id,t1.answer_verdict from ques
            LEFT JOIN (select substring_index(substring_index(question_id, ',', n), ',', -1) as question_id,substring_index(substring_index(answer_verdict, ',', n), ',', -1)
-           as answer_verdict from user_question_track join (SELECT @row := @row + 1 as n FROM 
+           as answer_verdict from user_question_track join (SELECT @row := @row + 1 as n FROM
            (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) t,
            (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) tt,
            (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) ttt,
@@ -60,26 +60,26 @@ class QuestionController extends Controller {
            (SELECT @row:=0) r) as
            numbers on char_length(question_id) - char_length(replace(question_id, ',', '')) >= n - 1 WHERE user_id = ".$user_id.") AS
            t1 ON ques.id = t1.question_id where t1.question_id IS NOT NULL AND ques.subject_id = ".$subjects[$i]->id.") as t4";
-           
+
             $result = DB::select(DB::raw($sql));
             if($result[0]->subject_id ==NULL)
             {
               $subject_name = $this->get_subject_name($subjects[$i]->id);
             array_push($response,['subject_name'=>$subject_name,'percentage'=>0]);
-                
+
             }
             else
             {
                 $subject_name = $this->get_subject_name($result[0]->subject_id);
             array_push($response,['subject_name'=>$subject_name,'percentage'=>floor($result[0]->percentage)]);
             }
-               
-            
+
+
             //file_put_contents('test.txt',json_encode($result));
-       
+
          }
          $subjects = json_decode(json_encode($response));
-         
+
           //file_put_contents('test.txt',json_encode($response));
         return view('overall_stat',['subjects'=>$subjects]);
     }
@@ -98,7 +98,7 @@ class QuestionController extends Controller {
                 $question_list = json_decode($individual_exam[$j]->question_answer);
                 $total_question = $total_question + sizeof($question_list);
                 //file_put_contents('test.txt',json_encode($question_list[0]));
-                
+
                 for ($k = 0;$k < sizeof($question_list);$k++) {
                     $question_id = $question_list[$k]->question_id;
                     $question = question::where('id', '=', $question_id)->first();
@@ -119,7 +119,7 @@ class QuestionController extends Controller {
         }
         return response()->json($response);
         //return response()->json(['total_exam'=>10,'Bangla Language and Lirerature'=>40,'Bangladesh Affairs'=>20,'General Science'=>20,'Computer and Information Technology'=>10,'International Affairs'=>10]);
-        
+
     }
     public function delete_challenge(Request $request) {
         $code = $request->code;
@@ -254,7 +254,7 @@ class QuestionController extends Controller {
         $question_category = json_encode($request->question_category);
         $user_id = $request->user_id;
         $code = $this->random_strings(6);
-    
+
         challenge_friend_question::create(['question_category' => $question_category, 'user_id' => $user_id, 'code' => $code]);
         return response()->json(['status_code' => 200, 'code' => $code]);
     }
@@ -283,7 +283,7 @@ class QuestionController extends Controller {
         {
            $remaining_exam = $exam_count->exam_count + 1;
            exam_count::where('user_id','=',$user_id)->where('exam_date','=',$date)->update(['exam_count'=>$remaining_exam]);
-           
+
         }
         else
         {
@@ -291,7 +291,7 @@ class QuestionController extends Controller {
         }
         return response()->json(['status_code' => 200]);
         //
-        
+
     }
     public function admin_question() {
         ///$user_id = Session::get('user_id');
@@ -325,9 +325,9 @@ class QuestionController extends Controller {
                             <td>' . $fetch[$i]->option4 . '</td>
                             <td>' . $fetch[$i]->correct_answer . '</td>
                             <td>' . $fetch[$i]->tag . '</td>
-                         
+
                             <td class="text-right">
-                               
+
                                 <button onclick="edit_question(' . $fetch[$i]->id . ')" class="btn btn-icon btn-hover btn-sm btn-rounded">
                                     <i class="anticon anticon-edit"></i>
                                 </button>
@@ -359,7 +359,7 @@ class QuestionController extends Controller {
     public function update(Request $request) {
         Question::where('id', $request->id)->update($request->all());
     }
-   
+
     public function subscription_free(Request $request) {
         $user_id = $request->user_id;
         $mobile = User::where('id', '=', $user_id)->first()->mobile;
@@ -375,7 +375,7 @@ class QuestionController extends Controller {
         }
     }
     public function caas_charge_mobile_number(Request $request) {
-        
+
          date_default_timezone_set('Asia/Dhaka');
         $date = date('d-m-Y');
         $mobile_number = $request->msisdn;
@@ -395,10 +395,10 @@ class QuestionController extends Controller {
             if ($cass_status->statusCode === "S1000") {
                 user::where('id','=',$user_id)->update(['mobile'=>$mobile_number]);
                 daily_charging::create(['statusCode' => $cass_status->statusCode, 'timeStamp' => $cass_status->timeStamp, 'externalTrxId' => $cass_status->externalTrxId, 'statusDetail' => $cass_status->statusDetail, 'internalTrxId' => $cass_status->internalTrxId]);
-                   
+
            exam_count::where('user_id','=',$user_id)->where('exam_date','=',$date)->update(['exam_count'=>0]);
-                
-                
+
+
                 return response()->json(['status_code' => 200]);
             } else {
                 return response()->json(['status_code' => 511]);
@@ -406,7 +406,7 @@ class QuestionController extends Controller {
         }
         catch(exception $e) {
             //return $e->getStatusCode;
-            
+
         }
     }
     public function caas_charge_regular(Request $request) {
@@ -439,7 +439,7 @@ class QuestionController extends Controller {
         }
         catch(exception $e) {
             //return $e->getStatusCode;
-            
+
         }
     }
 
@@ -447,7 +447,7 @@ class QuestionController extends Controller {
         $subject_list = DB::table('tbl_subject')->get();
         return response()->json(['status_code' => 200, 'subjects' => $subject_list]);
     }
-    
+
       public function get_subject_challenge_friend(Request $request) {
         $subject_list = DB::table('tbl_subject')->where('status','=',1)->get();
         return response()->json(['status_code' => 200, 'subjects' => $subject_list]);
@@ -455,23 +455,23 @@ class QuestionController extends Controller {
     function subscription_status_piad($mobile) {
         $subscription = new Subscription('https://developer.bdapps.com/subscription/send', $this->app_id, $this->app_password);
         $subscription_status = $subscription->getStatus('tel:88' . $mobile);
-        
+
         if ($subscription_status === "REGISTERED") {
             return true;
         } else {
             return false;
         }
     }
-    
+
     function subscription_status_free($mobile)
     {
-        
+
                 $subscription = new Subscription('https://developer.bdapps.com/subscription/send', $this->app_id_subscription_free, $this->app_password_subscription_free);
                 $subscription_status = $subscription->getStatus('tel:88' . $mobile);
                 return $subscription_status;
     }
-    
-   
+
+
     public function check_availability(Request $request)
     {
         $user_id = $request->user_id;
@@ -492,33 +492,33 @@ class QuestionController extends Controller {
         {
             $exam_count = 0;
         }
-        
+
        // $exam_count = 6;
-        
+
         // if($exam_count_paid !=0)
         // {
         //     $exam_count = 0;
         //     $this->exam_count_paid--;
         // }
-        
-        
-        
-        
+
+
+
+
        // return $exam_count;
-        
+
         if ($exam_count>=5) {
             if ($mobile) {
                 if ($this->subscription_status_piad($mobile)) {
                     if($daily_subscription_limit == 0){
                     $availability = true;
                     }
-                    
+
                     else
                     {
                          $availability = false;
                     }
-                    
-                    
+
+
                 } else {
                     $availability = false;
                 }
@@ -527,48 +527,48 @@ class QuestionController extends Controller {
             {
                  $availability = false;
             }
-            
+
         } else {
             $availability = true;
         }
-        
-        
+
+
       //  $availability = 'false';
 
         if($mobile)
         {
             $sub_status = $this->subscription_status_piad($mobile);
-            
+
             return response()->json(['msisdn'=>true,'availability'=>$availability,'sub_status'=>$sub_status,]);
         }
         else
         {
            if($availability)
            {
-           return response()->json(['msisdn'=>false,'availability'=>true]); 
+           return response()->json(['msisdn'=>false,'availability'=>true]);
            }
            else
            {
            return response()->json(['msisdn'=>false,'availability'=>false]);
            }
-           
+
         }
-        
-        
-         
-        
+
+
+
+
     }
-  
-    public function question_for_regular_exam(Request $request) {
+
+    public function get_question_test() {
         date_default_timezone_set('Asia/Dhaka');
         $date = date('d-m-Y');
-        $subject_id = $request->subject_id;
-        $user_id = $request->user_id;
-        $question_amount = 10;
+        $subject_id =6;// $request->subject_id;
+        $user_id = 18;// $request->user_id;
+        $question_amount = 2;
        if($subject_id == 6)
        {
-           $sql = "SELECT * from (SELECT * from ques LEFT JOIN (select substring_index(substring_index(question_id, ',', n), ',', -1) as question_id from user_question_track join 
-        (SELECT @row := @row + 1 as n FROM 
+           $sql = "SELECT * from (SELECT * from ques LEFT JOIN (select substring_index(substring_index(question_id, ',', n), ',', -1) as question_id from user_question_track join
+        (SELECT @row := @row + 1 as n FROM
         (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) t,
         (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) tt,
         (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) ttt,
@@ -579,8 +579,8 @@ class QuestionController extends Controller {
        }
        else
        {
-        $sql = "SELECT * from (SELECT * from ques LEFT JOIN (select substring_index(substring_index(question_id, ',', n), ',', -1) as question_id from user_question_track join 
-        (SELECT @row := @row + 1 as n FROM 
+        $sql = "SELECT * from (SELECT * from ques LEFT JOIN (select substring_index(substring_index(question_id, ',', n), ',', -1) as question_id from user_question_track join
+        (SELECT @row := @row + 1 as n FROM
         (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) t,
         (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) tt,
         (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) ttt,
@@ -591,8 +591,44 @@ class QuestionController extends Controller {
        }
         $question = DB::select(DB::raw($sql));
         return response(['question'=>$question]);
-       
-        
+
+
+    }
+
+    public function question_for_regular_exam(Request $request) {
+        date_default_timezone_set('Asia/Dhaka');
+        $date = date('d-m-Y');
+        $subject_id = $request->subject_id;
+        $user_id = $request->user_id;
+        $question_amount = 10;
+       if($subject_id == 6)
+       {
+           $sql = "SELECT * from (SELECT * from ques LEFT JOIN (select substring_index(substring_index(question_id, ',', n), ',', -1) as question_id from user_question_track join
+        (SELECT @row := @row + 1 as n FROM
+        (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) t,
+        (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) tt,
+        (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) ttt,
+        (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) tttt,
+        (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) ttttt,
+        (SELECT @row:=0) r) as numbers on char_length(question_id) - char_length(replace(question_id, ',', '')) >= n - 1 WHERE user_id = " . $user_id . ") AS t1 ON ques.id = t1.question_id
+        where t1.question_id IS NULL ) as t2  ORDER BY RAND() LIMIT ".$question_amount." ";
+       }
+       else
+       {
+        $sql = "SELECT * from (SELECT * from ques LEFT JOIN (select substring_index(substring_index(question_id, ',', n), ',', -1) as question_id from user_question_track join
+        (SELECT @row := @row + 1 as n FROM
+        (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) t,
+        (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) tt,
+        (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) ttt,
+        (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) tttt,
+        (select 0 union all select 1 union all select 3 union all select 4 union all select 5 union all select 6 union all select 6 union all select 7 union all select 8 union all select 9) ttttt,
+        (SELECT @row:=0) r) as numbers on char_length(question_id) - char_length(replace(question_id, ',', '')) >= n - 1 WHERE user_id = " . $user_id . ") AS t1 ON ques.id = t1.question_id
+        where t1.question_id IS NULL ) as t2 WHERE t2.subject_id =" . $subject_id . "  ORDER BY RAND() LIMIT ".$question_amount." ";
+       }
+        $question = DB::select(DB::raw($sql));
+        return response(['question'=>$question]);
+
+
     }
     public function check_subscription(Request $request) {
         $user_id = $request->user_id;
@@ -606,5 +642,5 @@ class QuestionController extends Controller {
             return response()->json(['status_code' => 400]);
         }
     }
-  
+
 }

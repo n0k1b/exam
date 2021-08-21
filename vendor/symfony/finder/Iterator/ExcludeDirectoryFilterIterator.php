@@ -25,7 +25,7 @@ class ExcludeDirectoryFilterIterator extends \FilterIterator implements \Recursi
 
     /**
      * @param \Iterator $iterator    The Iterator to filter
-     * @param array     $directories An array of directories to exclude
+     * @param string[]  $directories An array of directories to exclude
      */
     public function __construct(\Iterator $iterator, array $directories)
     {
@@ -34,7 +34,7 @@ class ExcludeDirectoryFilterIterator extends \FilterIterator implements \Recursi
         $patterns = [];
         foreach ($directories as $directory) {
             $directory = rtrim($directory, '/');
-            if (!$this->isRecursive || false !== strpos($directory, '/')) {
+            if (!$this->isRecursive || str_contains($directory, '/')) {
                 $patterns[] = preg_quote($directory, '#');
             } else {
                 $this->excludedDirs[$directory] = true;
@@ -68,11 +68,17 @@ class ExcludeDirectoryFilterIterator extends \FilterIterator implements \Recursi
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function hasChildren()
     {
         return $this->isRecursive && $this->iterator->hasChildren();
     }
 
+    /**
+     * @return self
+     */
     public function getChildren()
     {
         $children = new self($this->iterator->getChildren(), []);
